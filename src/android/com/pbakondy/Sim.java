@@ -81,7 +81,7 @@ public class Sim extends CordovaPlugin {
 
       try {
         // TelephonyManager.getPhoneCount() requires API 23
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
           phoneCount = manager.getActiveModemCount();
         }
 

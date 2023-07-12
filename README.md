@@ -1,4 +1,16 @@
 #### This is a fork of the original plugin community-cordova-plugin-sim
+
+I dedicate a considerable amount of my free time to developing and maintaining many cordova plugins for the community ([See the list with all my maintained plugins][community_plugins]).
+To help ensure this plugin is kept updated,
+new features are added and bugfixes are implemented quickly,
+please donate a couple of dollars (or a little more if you can stretch) as this will help me to afford to dedicate time to its maintenance.
+Please consider donating if you're using this plugin in an app that makes you money,
+or if you're asking for new features or priority bug fixes. Thank you!
+
+[![](https://img.shields.io/static/v1?label=Sponsor%20Me&style=for-the-badge&message=%E2%9D%A4&logo=GitHub&color=%23fe8e86)](https://github.com/sponsors/eyalin)
+
+
+
 Android:
 all functions that need PHONE_STATE permission have been removed, the rest are supported.
 
@@ -311,3 +323,5 @@ Additional return values:
 ## LICENSE
 
 **cordova-plugin-sim** is licensed under the MIT Open Source license. For more information, see the LICENSE file in this repository.
+
+[community_plugins]: https://github.com/EYALIN?tab=repositories&q=community&type=&language=&sort=
