@@ -15,29 +15,30 @@
 
 @implementation Sim
 
+// On iOS 16.4+ the deprecated CTCarrier no longer returns nil for an
+// unavailable value. Instead it returns literal placeholder strings ("--" for
+// carrier name / ISO country code, "65535" for MCC / MNC). Treat those
+// placeholders as absent so they don't leak through as truthy values to JS.
++ (NSString *)normalizeCarrierValue:(NSString *)value
+{
+  if (!value
+      || [value isEqualToString:@"--"]
+      || [value isEqualToString:@"65535"]) {
+    return @"";
+  }
+  return value;
+}
+
 - (void)getSimInfo:(CDVInvokedUrlCommand*)command
 {
   CTTelephonyNetworkInfo *netinfo = [[CTTelephonyNetworkInfo alloc] init];
   CTCarrier *carrier = [netinfo subscriberCellularProvider];
 
   BOOL allowsVOIPResult = [carrier allowsVOIP];
-  NSString *carrierNameResult = [carrier carrierName];
-  NSString *carrierCountryResult = [carrier isoCountryCode];
-  NSString *carrierCodeResult = [carrier mobileCountryCode];
-  NSString *carrierNetworkResult = [carrier mobileNetworkCode];
-
-  if (!carrierNameResult) {
-    carrierNameResult = @"";
-  }
-  if (!carrierCountryResult) {
-    carrierCountryResult = @"";
-  }
-  if (!carrierCodeResult) {
-    carrierCodeResult = @"";
-  }
-  if (!carrierNetworkResult) {
-    carrierNetworkResult = @"";
-  }
+  NSString *carrierNameResult = [Sim normalizeCarrierValue:[carrier carrierName]];
+  NSString *carrierCountryResult = [Sim normalizeCarrierValue:[carrier isoCountryCode]];
+  NSString *carrierCodeResult = [Sim normalizeCarrierValue:[carrier mobileCountryCode]];
+  NSString *carrierNetworkResult = [Sim normalizeCarrierValue:[carrier mobileNetworkCode]];
 
   NSDictionary *simData = [NSDictionary dictionaryWithObjectsAndKeys:
     @(allowsVOIPResult), @"allowsVOIP",
